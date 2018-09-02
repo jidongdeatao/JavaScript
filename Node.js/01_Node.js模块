@@ -1,0 +1,126 @@
+2.1 Node.js模块(module)
+
+每一个 Node.js 文件都是一个 Node.js 模块，包括JavaScript文件（.js）、JSON文本文件（.json）和二进制模块文件（.node）。
+2.1.1 模块的使用
+
+编写一个模块：
+在虚拟机桌面新建一个文件mymodule.js，输入如下代码并保存：
+function hello() {
+    console.log('Hello');
+}
+
+function world() {
+    console.log('World');
+}
+这就是一个Node.js模块，但是怎么在其他模块中引入并使用这个模块呢？我们需要为模块提供对外的接口，这就要用到module.exports和exports。
+我们可以这样写mymodule.js：
+function hello() {
+    console.log('Hello');
+}
+
+function world() {
+    console.log('World');
+}
+
+exports.hello = hello;
+exports.world = world;
+在其他模块中，可以使用require(module_name);载入需要的模块，如，在虚拟机桌面新建index.js，输入如下代码并保存：
+var hello = require('./mymodule'); // 也可以写作 var hello = require('./mymodule.js');
+
+// 现在就可以使用mymodule.js中的函数了
+hello.hello(); // >> Hello
+hello.world(); // >> World
+也可以这样写mymodule.js：
+function Hello() {
+    this.hello = function() {
+        console.log('Hello');
+    };
+
+    this.world = function() {
+        console.log('World');
+    };
+}
+
+module.exports = Hello;
+此时，index.js就要改成这样：
+var Hello = require('./mymodule');
+
+var hello = new Hello();
+
+hello.hello(); // >> Hello
+hello.world(); // >> World
+2.1.2 module.exports和exports
+
+module是一个对象，每个模块中都有一个module对象，module是对当前模块的一个引用。module.exports对象是由Module系统创建的，而exports可以看作是对module.exports对象的一个引用。在模块中require另一个模块时，以module.exports的值为准，因为有的情况下，module.exports和exports它们的值是不同的。module.exports和exports的关系可以表示成这样：
+// module.exports和exports相同的情况
+var m = {};        // 表示 module
+var e = m.e = {};  // e 表示 exports， m.e 表示 module.exports
+
+m.e.a = 5;
+e.b = 6;
+
+console.log(m.e);  // Object { a: 5, b: 6 }
+console.log(e);    // Object { a: 5, b: 6 }
+// module.exports和exports不同的情况
+var m = {};        // 表示 module
+var e = m.e = {};  // e 表示 exports， m.e 表示 module.exports
+
+m.e = { c: 9 };    // m.e（module.exports）引用的对象被修改了
+e.d = 10;
+
+console.log(m.e);  // Object { c: 9 }
+console.log(e);    // Object { d: 10 }
+2.2 Node.js包(package)
+
+2.2.1 包
+
+包用于管理多个模块及其依赖关系，可以对多个模块进行封装，包的根目录必须包含package.json文件，package.json文件是CommonJS规范用于描述包的文件，符合CommonJS规范的package.json文件一般包含以下字段：
+1. name：包名。包名是唯一的，只能包含小写字母、数字和下划线。
+2. version：包版本号。
+3. description：包说明。
+4. keywords：关键字数组。用于搜索。
+5. homepage：项目主页。
+6. bugs：提交bug的地址。
+7. license：许可证。
+8. maintainers：维护者数组。
+9. contributors：贡献者数组。
+10. repositories：项目仓库托管地址数组。
+11. dependencies：包依赖。
+下面是一个package.json示例：
+{
+    "name": "shiyanlou",
+    "description": "Shiyanlou test package.",
+    "version": "0.1.0",
+    "keywords": [
+        "shiyanlou",
+        "nodejs"
+     ],
+    "maintainers": [{
+        "name": "test",
+        "email": "test@shiyanlou.com"
+    }],
+    "contributors": [{
+        "name": "test",
+        "web": "http://www.shiyanlou.com/"
+    }],
+    "bugs": {
+        "mail": "test@shiyanlou.com",
+        "web": "http://www.shiyanlou.com/"
+    },
+    "licenses": [{
+        "type": "Apache License v2",
+        "url": "http://www.apache.org/licenses/apache2.html"
+    }],
+    "repositories": [{
+        "type": "git",
+        "url": "http://github.com/test/test.git"
+    }],
+    "dependencies": { 
+        "webkit": "1.2",
+        "ssl": { 
+            "gnutls": ["1.0", "2.0"],
+            "openssl": "0.9.8"
+        }
+    }
+}
+package.json文件可以自己手动编辑，但为了方便，更推荐通过npm init命令进行生成。你可以自己尝试在终端中输入npm init命令来生成一个包含package.json文件的包。
