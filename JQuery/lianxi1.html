@@ -1,0 +1,120 @@
+<!--练习一：当页面加载完成后，在页面首部中以居中的方式显示"-----大家好才是真的好-----"字样。-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        div{
+            padding:8px 0px;
+            font-size:12px;
+            text-align:center;
+            border:1px solid #888;
+        }
+    </style>
+    <script type="text/javascript" src="./node_modules/jquery/dist/jquery.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("div").html("-----大家好才是真的好-----");
+    });
+    </script>
+</head>
+<body>
+    <div></div>
+</body>
+</html>
+
+
+
+<!-- 练习二-->
+<!-- jQuery对象与DOM对象不一样的地方，以及相互间的转换 -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title></title>
+    <script src="./node_modules/jquery/dist/jquery.js"></script>
+
+    <!-- 使用JS原生语法:通过原生DOM模型提供的document.getElementById(“imooc”)
+    方法获取的DOM元素就是一个DOM对象，
+    再通过innerHTML与style属性处理文本与颜色。 -->
+
+    <script type="text/javascript">
+        window.onload = function(){
+            // 通过原生JS语法获取id为imooc1的元素p
+            var p = document.getElementById('imooc1');
+            // 将元素p在html中内容改变
+            p.innerHTML = 'P1：您好！通过慕课网学习jQuery才是最佳的途径';
+            // 将元素p的内容颜色改为红色
+            p.style.color = 'red';
+        }
+    </script>
+
+    <!-- 使用jQuery语法:通过$('#imooc')方法会得到一个$p的jQuery对象，
+    $p是一个类数组对象。这个对象里面包含了DOM对象的信息，然后封装了很多操作方法，
+    调用自己的方法html与css，得到的效果与标准的JavaScript处理结果是一致的 -->
+    <script type="text/javascript">
+        $(document).ready(function() {
+            /**
+             * 通过jQuery语法获取id为imooc2的元素获得一个jQuery对象
+             * 调用该对象的html()方法进行更改内容
+             * 调用该对象的css()方法进行更改颜色样式
+             */
+            var $p = $('#imooc2');
+            $p.html('P2：您好！通过慕课网学习jQuery才是最佳的途径').css('color','red');
+        });
+    </script>
+</head>
+<body>
+<p id="imooc1"></p>
+<p id="imooc2"></p>
+</body>
+</html>
+
+
+<!-- 练习三-->
+<!-- jQuery对象转化成DOM对象，jQuery对象是一个类数组对象，而DOM对象是一个单独的DOM元素，利用数组下标的方式读取到jQuery中的DOM对象 -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title></title>
+    <script src="./node_modules/jquery/dist/jquery.js"></script>
+</head>
+<body>
+<div>元素一</div>
+<div>元素二</div>
+<div>元素三</div>
+<script type="text/javascript">
+    var $div = $('div'); //jQuery对象
+//    var div = $div[0] //转换成DOM对象
+    var div = $div.get(2) //通过jQuery的get方法,转化成DOM对象
+    div.style.color = 'red'; //操作dom对象的属性
+</script>
+</body>
+</html>
+
+
+
+<!-- 练习四-->
+<!--通过$(dom)方法将普通的dom对象加工成jQuery对象之后，我们就可以调用jQuery的方法了 -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title></title>
+    <script src="./node_modules/jquery/dist/jquery.js"></script>
+</head>
+<body>
+<div>元素一</div>
+<div>元素二</div>
+<div>元素三</div>
+
+<script type="text/javascript">
+    var div = document.getElementsByTagName('div'); //dom对象
+    var $div = $(div); //将dom节点div转化为$div的jquery对象
+    var $first = $div.first(); //找到第一个div元素
+    $first.css('color', 'red'); //给第一个元素设置颜色
+</script>
+</body>
+</html>
