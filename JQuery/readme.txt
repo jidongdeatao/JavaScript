@@ -18,6 +18,8 @@ JQuery研究
 
 
 参考了慕课网课程
+《课程一：jQuery基础 (一)—样式篇》   
+    https://www.imooc.com/learn/418
 第1章 初识jQuery     --lianxi1.html
 本章我们会初步的了解下jQuery，掌握jQuery对象与DOM对象之间的转换
  1-2 环境搭建
