@@ -1,7 +1,6 @@
 <!--jQuery选择器-->
 
 <!--课程一：jQuery选择器之id选择器,一个用来查找的ID，即元素的id属性$("#id") -->
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,7 +16,7 @@
         background-color: #EEEEEE;
     }
     </style>
-    <script src="https://www.imooc.com/static/lib/jquery/1.9.1/jquery.js"></script>
+    <script src="./node_modules/jquery/dist/jquery.js"></script>
 </head>
 
 <body>   
@@ -45,10 +44,9 @@
     	//id的唯一，只选择到了第一个匹配的id为imooc的div节点
         $("#imooc").css("border", "3px solid red");
     </script>
-
 </body>
-
 </html>
+
 
 <!--课程二：jQuery选择器之class选择器,通过class样式类名来获取节点$(".class"),相对id选择器来说，效率相对会低一点，但是优势就是可以多选 -->
 <!DOCTYPE html>
@@ -66,7 +64,7 @@
             background-color: #EEEEEE;
         }
     </style>
-    <script src="https://www.imooc.com/static/lib/jquery/1.9.1/jquery.js"></script>
+    <script src="./node_modules/jquery/dist/jquery.js"></script>
 </head>
 <body>   
 	 <div class="aaron">
@@ -121,7 +119,7 @@
         background-color: #EEEEEE;
     }
     </style>
-    <script src="https://www.imooc.com/static/lib/jquery/1.9.1/jquery.js"></script>
+    <script src="./node_modules/jquery/dist/jquery.js"></script>
 </head>
 <body>
     <div class="aaron">
@@ -158,3 +156,56 @@
 </html>
 
 <!--课程四：jQuery选择器之全选择器,$("*"),获取文档中所有的元素 -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style>
+        div {
+            width: 100px;
+            height: 90px;
+            float: left;
+            padding: 5px;
+            margin: 5px;
+            background-color: #EEEEEE;
+        }
+    </style>
+    <script src="./node_modules/jquery/dist/jquery.js"></script>
+</head>
+<body>
+<div class="aaron">
+    <p>class="aaron"</p>
+    <p>选中</p>
+</div>
+<div class="aaron">
+    <p>class="aaron"</p>
+    <p>选中</p>
+</div>
+<div class="imooc">
+    <p>class="imooc"</p>
+    <p>jQuery选中</p>
+</div>
+<div class="imooc">
+    <p>class="imooc"</p>
+    <p>jQuery选中</p>
+</div>
+
+<script type="text/javascript">
+    //获取页面中所有的元素
+    var elements1 = document.getElementsByTagName('*');
+</script>
+<script type="text/javascript">
+    //获取页面中所有的元素
+    var elements2 = $("*");      ;
+    //原生与jQuery方法比较
+    //===表示数据和类型都相等
+    if(elements2.length === elements1.length){
+        elements2.css("border","1px solid red");
+    }
+</script>
+</body>
+</html>
+
+<!--课程五：jQuery选择器之层级选择器,用来处理子元素、后代元素、兄弟元素、相邻元素 -->
+<!--  -->
